@@ -16,12 +16,14 @@ if __name__ == '__main__':
     f = open(opt.output,'w')
     jpg_list = glob.glob(opt.dataset + '**/*.jpg', recursive=True) + glob.glob(opt.dataset + '**/*.JPG', recursive=True)
     for jpg in jpg_list:
+        img = cv2.imread(jpg)
+        height, width, channels = img.shape
         try:
             open_file = open(os.path.splitext(jpg)[0] + '.lpr', 'r')
         except OSError:
             print('can not open file: ' + jpg + '.lpr')
         else:
-            print('{}'.format(os.path.splitext(jpg)[0] + '.jpg'), end='',file=f)
+            print('{}'.format(jpg), end='',file=f)
             line = open_file.readline().replace('\n', '')
             while line:
                 xy = line.split(' ')
@@ -30,13 +32,12 @@ if __name__ == '__main__':
                 x_max = max(xy[0],xy[2],xy[4], xy[6])
                 y_min = min(xy[1],xy[3],xy[5], xy[7])
                 y_max = max(xy[1],xy[3],xy[5], xy[7])
-                line = open_file.readline()
-                class_id = int(line)
                 #draft
                 line = open_file.readline()
                 line = open_file.readline()
-                real_number = line
-                print(' {},{},{},{},{}'.format(str(x_min), str(y_min), str(x_max), str(y_max), class_id),end='',file=f)
+                line = open_file.readline()
+                if (x_max <= width and x_min >=0) and (y_max <= height and y_min >=0):
+                    print(' {},{},{},{},{}'.format(str(x_min), str(y_min), str(x_max), str(y_max), '0'),end='',file=f)
                 line = open_file.readline()
                 line = open_file.readline().replace('\n', '')
             print('',file=f)
@@ -64,8 +65,10 @@ if __name__ == '__main__':
                 line = open_file.readline()
                 line = open_file.readline()
                 line = open_file.readline()
-                print(' {},{},{},{},{}'.format(str(x_min), str(y_min), str(x_max), str(y_max), '0'),end='',file=f)
+                if (x_max <= width and x_min >=0) and (y_max <= height and y_min >=0):
+                    print(' {},{},{},{},{}'.format(str(x_min), str(y_min), str(x_max), str(y_max), '0'),end='',file=f)
                 line = open_file.readline()
                 line = open_file.readline().replace('\n', '')
             print('',file=f)
+
 
