@@ -125,11 +125,11 @@ class YoloTrain(object):
     def train(self):
         self.sess.run(tf.global_variables_initializer())
         try:
-            print('=> Restoring weights from: %s ... ' % self.initial_weight)
+            print('=> Restoring weights from: %s ... ' % self.initial_weight, flush=True)
             self.loader.restore(self.sess, self.initial_weight)
         except:
-            print('=> %s does not exist !!!' % self.initial_weight)
-            print('=> Now it starts to train YOLOV3 from scratch ...')
+            print('=> %s does not exist !!!' % self.initial_weight, flush=True)
+            print('=> Now it starts to train YOLOV3 from scratch ...', flush=True)
             self.first_stage_epochs = 0
 
         for epoch in range(1, 1+self.first_stage_epochs+self.second_stage_epochs):
@@ -176,7 +176,7 @@ class YoloTrain(object):
             ckpt_file = "./checkpoint/yolov3_test_loss=%.4f.ckpt" % test_epoch_loss
             log_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             print("=> Epoch: %2d Time: %s Train loss: %.2f Test loss: %.2f Saving %s ..."
-                            %(epoch, log_time, train_epoch_loss, test_epoch_loss, ckpt_file))
+                            %(epoch, log_time, train_epoch_loss, test_epoch_loss, ckpt_file), flush=True)
             self.saver.save(self.sess, ckpt_file, global_step=epoch)
 
 
