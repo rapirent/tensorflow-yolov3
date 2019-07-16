@@ -36,7 +36,7 @@ if __name__ == '__main__':
                 line = open_file.readline()
                 line = open_file.readline()
                 line = open_file.readline()
-                if (x_max <= width and x_min >=0) and (y_max <= height and y_min >=0):
+                if (x_max < width and x_min >0) and (y_max < height and y_min >0):
                     print(' {},{},{},{},{}'.format(str(x_min), str(y_min), str(x_max), str(y_max), '0'),end='',file=f)
                 line = open_file.readline()
                 line = open_file.readline().replace('\n', '')
@@ -65,7 +65,7 @@ if __name__ == '__main__':
                 line = open_file.readline()
                 line = open_file.readline()
                 line = open_file.readline()
-                if (x_max <= width and x_min >=0) and (y_max <= height and y_min >=0):
+                if (x_max < width and x_min >0) and (y_max < height and y_min >0):
                     print(' {},{},{},{},{}'.format(str(x_min), str(y_min), str(x_max), str(y_max), '0'),end='',file=f)
                 line = open_file.readline()
                 line = open_file.readline().replace('\n', '')
